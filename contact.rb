@@ -92,19 +92,12 @@ class Contact
 	end
 
 	def print_addresses
-		puts "Addresses"
+		puts "Addresses:"
 		addresses.each {|address| puts address.to_s('short')}
 	end
 
 
 end
 
-david = Contact.new
-david.first_name = "David"
-david.last_name = "Valles"
-david.add_phone_number("Home", "123-456-789")
-david.add_address("Home", "123 Main St.", "", "Portland", "OR", "12345")
-puts david.full_name
-david.print_phone_numbers
-david.print_addresses
+
 
