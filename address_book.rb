@@ -8,6 +8,74 @@ class AddressBook
 		@contacts = []
 	end
 
+	def run
+	  loop do
+	    puts "Address Book"
+	    puts "a: Add Contact"
+	    puts "p: Print Address Book"
+	    puts "e: Exit"
+	    print "Enter your choice: "
+	    input = gets.chomp.downcase
+	    case input
+	    when 'a'
+	      add_contact
+	    when 'p'
+	      print_contact_list
+	    when 'e'
+	      break  
+	    end
+	  end
+	end
+
+	def add_contact
+	  contact = Contact.new
+	  print "First name: "
+	  contact.first_name = gets.chomp
+	  print "Middle name: "
+	  contact.middle_name = gets.chomp
+	  print "Last name: "
+	  contact.last_name = gets.chomp
+
+	  loop do
+	    puts "Add phone number or address? "
+	    puts "p: Add phone number"
+	    puts "a: Add address"
+	    puts "(Any other key to go back)"
+	    response = gets.chomp.downcase
+	    case response
+	    when 'p'
+	      phone = PhoneNumber.new
+	      print "Phone number kind (Home, Work, etc): "
+	      phone.kind = gets.chomp
+	      print "Number: "
+	      phone.number = gets.chomp
+	      contact.phone_numbers.push(phone)
+	    when 'a'
+	      address = Address.new
+	      print "Address Kind (Home, Work, etc): "
+	      address.kind = gets.chomp
+	      print "Address line 1: "
+	      address.street_1 = gets.chomp
+	      print "Address line 2: "
+	      address.street_2 = gets.chomp
+	      print "City: "
+	      address.city = gets.chomp
+	      print "State: "
+	      address.state = gets.chomp
+	      print "Postal Code: "
+	      address.postal_code = gets.chomp
+	      contact.addresses.push(address)
+	    else
+	      print "\n"
+	      break
+	    end
+	  end
+
+	  contacts.push(contact)
+	end
+
+
+
 	def print_results(search, results)
 	  puts search
 	  results.each do |contact|
@@ -65,23 +133,4 @@ class AddressBook
 end
 
 address_book = AddressBook.new
-
-david = Contact.new
-david.first_name = "David"
-david.last_name = "Valles"
-david.add_phone_number("Home", "123-456-789")
-david.add_address("Home", "123 Main St.", "", "Portland", "OR", "12345")
-
-daniel = Contact.new
-daniel.first_name = "Daniel"
-daniel.last_name = "Valles"
-daniel.add_phone_number("Home", "125-349-329")
-daniel.add_address("Home", "123 Monte Palatino", "", "Monterrey", "NL", "66223")
-
-address_book.contacts.push(david)
-address_book.contacts.push(daniel)
-#address_book.print_contacts_list
-
-#address_book.find_by_name("D")
-
-address_book.find_by_phone_number("123")
+address_book.run
